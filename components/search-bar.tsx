@@ -1,39 +1,54 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
-  initialQuery?: string;
 }
 
-export function SearchBar({ onSearch, initialQuery = '' }: SearchBarProps) {
-  const [query, setQuery] = useState(initialQuery);
+export function SearchBar({ onSearch }: SearchBarProps) {
+  const [query, setQuery] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      onSearch(query);
-    }, 300); // Debounce search
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch(query);
+  };
 
-    return () => clearTimeout(timeoutId);
-  }, [query, onSearch]);
+  const handleClear = () => {
+    setQuery('');
+    onSearch('');
+  };
 
   return (
-    <div className="mb-6">
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-          </svg>
+    <div className="relative">
+      <form onSubmit={handleSubmit}>
+        <div className={`relative flex items-center bg-gray-100 rounded-full transition-all ${
+          isFocused ? 'bg-white border border-blue-500' : 'hover:bg-gray-200'
+        }`}>
+          <div className="absolute left-4 text-gray-500">
+            <span className="text-lg">🔍</span>
+          </div>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            placeholder="Search Micro Feed"
+            className="w-full py-3 pl-12 pr-12 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none rounded-full"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={handleClear}
+              className="absolute right-4 text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              <span className="text-lg">✕</span>
+            </button>
+          )}
         </div>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="🔍 Search posts by keyword..."
-          className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 placeholder-gray-500 bg-white"
-        />
-      </div>
+      </form>
     </div>
   );
 }

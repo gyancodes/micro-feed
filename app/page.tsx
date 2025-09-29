@@ -8,7 +8,8 @@ import { usePosts } from '@/hooks/use-posts';
 import { Composer } from '@/components/composer';
 import { PostCard } from '@/components/post-card';
 import { SearchBar } from '@/components/search-bar';
-import { Toolbar } from '@/components/toolbar';
+import { Sidebar } from '@/components/sidebar';
+import { RightSidebar } from '@/components/right-sidebar';
 import { AuthForm } from '@/components/auth-form';
 
 export default function Home() {
@@ -140,76 +141,87 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto p-4">
-        <div className="text-center mb-8 pt-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Micro Feed</h1>
-          <p className="text-gray-600">Your personal micro-blogging space</p>
-          <div className="flex items-center justify-center mt-2">
-            <div className={`w-2 h-2 rounded-full mr-2 ${
-              realtimeStatus === 'connected' ? 'bg-green-500' : 
-              realtimeStatus === 'connecting' ? 'bg-yellow-500' : 'bg-red-500'
-            }`}></div>
-            <span className="text-xs text-gray-500">
-              {realtimeStatus === 'connected' ? 'Live updates active' : 
-               realtimeStatus === 'connecting' ? 'Connecting...' : 'Offline'}
-            </span>
-          </div>
-        </div>
-      
-      <Toolbar
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Left Sidebar */}
+      <Sidebar
+        username={profile?.username}
+        onSignOut={handleSignOut}
         filter={filter}
         onFilterChange={setFilter}
-        onSignOut={handleSignOut}
-        username={profile?.username}
       />
 
-      <SearchBar onSearch={setQuery} />
-
-      <Composer onPostCreated={handlePostCreated} />
-
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
-        </div>
-      )}
-
-      {postsLoading && posts.length === 0 ? (
-        <div className="text-center py-8">
-          <div className="text-lg">Loading posts...</div>
-        </div>
-      ) : posts.length === 0 ? (
-        <div className="text-center py-8">
-          <div className="text-gray-500">
-            {query ? 'No posts found matching your search.' : 'No posts yet. Be the first to post!'}
+      {/* Main Content Area */}
+      <div className="flex-1 ml-64 mr-80">
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
+          <div className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-gray-200 p-4 z-10">
+            <h1 className="text-xl font-bold text-gray-900">
+              {filter === 'all' ? 'Home' : 'Your Posts'}
+            </h1>
           </div>
-        </div>
-      ) : (
-        <>
-          {posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              currentUserId={user.id}
-              onPostUpdated={handlePostUpdated}
-              onPostDeleted={handlePostDeleted}
-              onLikeToggled={handleLikeToggled}
-            />
-          ))}
 
-          {hasMore && (
-            <div className="text-center py-4">
-              <button
-                onClick={loadMore}
-                disabled={postsLoading}
-                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50"
-              >
-                {postsLoading ? 'Loading...' : 'Load More'}
-              </button>
+          {/* Search Bar */}
+          <div className="p-4 border-b border-gray-200 bg-white">
+            <SearchBar onSearch={setQuery} />
+          </div>
+
+          {/* Composer */}
+          <div className="border-b border-gray-200">
+            <Composer onPostCreated={handlePostCreated} />
+          </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mx-4">
+              {error}
             </div>
           )}
-        </>
-      )}
+
+          {/* Posts Feed */}
+          <div className="divide-y divide-gray-200">
+            {postsLoading && posts.length === 0 ? (
+              <div className="text-center py-8">
+                <div className="text-lg text-gray-500">Loading posts...</div>
+              </div>
+            ) : posts.length === 0 ? (
+              <div className="text-center py-8">
+                <div className="text-gray-500">
+                  {query ? 'No posts found matching your search.' : 'No posts yet. Be the first to post!'}
+                </div>
+              </div>
+            ) : (
+              <>
+                {posts.map((post) => (
+                  <PostCard
+                    key={post.id}
+                    post={post}
+                    currentUserId={user.id}
+                    onPostUpdated={handlePostUpdated}
+                    onPostDeleted={handlePostDeleted}
+                    onLikeToggled={handleLikeToggled}
+                  />
+                ))}
+
+                {hasMore && (
+                  <div className="text-center py-6 border-t border-gray-200">
+                    <button
+                      onClick={loadMore}
+                      disabled={postsLoading}
+                      className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 disabled:opacity-50 font-medium"
+                    >
+                      {postsLoading ? 'Loading...' : 'Load More'}
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Right Sidebar */}
+      <div className="fixed right-0 top-0 h-full w-80 p-4 overflow-y-auto">
+        <RightSidebar realtimeStatus={realtimeStatus} />
       </div>
     </div>
   );
