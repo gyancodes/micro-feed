@@ -128,35 +128,109 @@ export default function Home() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-blue-50">
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white to-blue-50">
+        {/* Decorative gradient blobs */}
+        <div aria-hidden className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-200 opacity-40 blur-3xl"></div>
+        <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-10 h-80 w-80 rounded-full bg-indigo-200 opacity-30 blur-3xl"></div>
+
         {/* Hero */}
         <header className="relative isolate px-6 pt-16 pb-12 sm:pt-24 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-200">
-              New • Real-time social micro feed
-            </span>
-            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-              Say more with less
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Create bite-sized posts, see real-time updates, and connect instantly.
-              Built for speed and simplicity.
-            </p>
-          </div>
-          <div id="get-started" className="mx-auto mt-10 max-w-md">
-            <div className="rounded-2xl bg-white/80 backdrop-blur-md p-6 shadow-lg ring-1 ring-gray-200">
-              <h2 className="text-base font-semibold text-gray-900 mb-4">Get started</h2>
-              <AuthForm onAuthSuccess={handleAuthSuccess} />
+          <div className="mx-auto max-w-7xl">
+            <div className="grid items-center gap-10 lg:grid-cols-2">
+              {/* Copy + CTA */}
+              <div className="text-center lg:text-left">
+                <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-200">
+                  New • Real-time social micro feed
+                </span>
+                <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+                  Say more with less
+                </h1>
+                <p className="mt-6 text-lg leading-8 text-gray-600">
+                  Share bite-sized thoughts, get instant feedback, and stay in the flow.
+                </p>
+
+                <div className="mt-8 inline-flex items-center justify-center gap-3">
+                  <a href="#get-started" className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-white font-medium shadow-sm hover:bg-blue-700">
+                    Get started
+                  </a>
+                  <a href="#features" className="inline-flex items-center justify-center rounded-full border border-blue-200 bg-white px-6 py-2 text-blue-700 font-medium hover:border-blue-300">
+                    Learn more
+                  </a>
+                </div>
+
+                {/* Social proof */}
+                <div className="mt-8 flex items-center justify-center gap-3 lg:justify-start">
+                  <div className="-space-x-2">
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white text-xs ring-2 ring-white">A</span>
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white text-xs ring-2 ring-white">B</span>
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-white text-xs ring-2 ring-white">C</span>
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-rose-600 text-white text-xs ring-2 ring-white">D</span>
+                  </div>
+                  <p className="text-sm text-gray-500">Loved by teams and solo creators</p>
+                </div>
+              </div>
+
+              {/* Right: product preview */}
+              <div className="relative">
+                <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-200 bg-white/80 p-4 shadow-xl backdrop-blur-md ring-1 ring-gray-200">
+                  <div className="mb-3 flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-full bg-blue-600 text-white grid place-items-center font-semibold">U</div>
+                    <div>
+                      <div className="text-sm font-semibold text-gray-900">You</div>
+                      <div className="text-xs text-gray-500">Start a post…</div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-dashed border-gray-300 p-4 text-sm text-gray-500">Composer placeholder (280 characters)</div>
+                  <div className="mt-4 space-y-3">
+                    <div className="rounded-xl border border-gray-200 p-4">
+                      <div className="mb-2 flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-gray-200"></div>
+                        <div className="text-sm font-semibold text-gray-900">alex</div>
+                        <div className="text-xs text-gray-400">2m</div>
+                      </div>
+                      <p className="text-sm text-gray-700">Micro Feed feels incredibly fast. Love the real-time updates! ⚡</p>
+                      <div className="mt-3 flex items-center gap-4 text-xs text-gray-500">
+                        <span>❤️ 12</span>
+                        <span>💬 3</span>
+                      </div>
+                    </div>
+                    <div className="rounded-xl border border-gray-200 p-4">
+                      <div className="mb-2 flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-gray-200"></div>
+                        <div className="text-sm font-semibold text-gray-900">sam</div>
+                        <div className="text-xs text-gray-400">5m</div>
+                      </div>
+                      <p className="text-sm text-gray-700">Typed, posted, done. The UX is clean and distraction-free.</p>
+                      <div className="mt-3 flex items-center gap-4 text-xs text-gray-500">
+                        <span>❤️ 7</span>
+                        <span>💬 1</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p className="mt-4 text-center text-sm text-gray-500">
-              By continuing, you agree to our Terms and Privacy Policy.
-            </p>
+
+            {/* Single sign-in card anchor */}
+            <div id="get-started" className="mx-auto mt-10 max-w-md lg:mx-0 lg:mt-12">
+              <div className="rounded-2xl bg-white/80 backdrop-blur-md p-6 shadow-lg ring-1 ring-gray-200">
+                <h2 className="text-base font-semibold text-gray-900 mb-4">Sign in to continue</h2>
+                <AuthForm onAuthSuccess={handleAuthSuccess} />
+              </div>
+              <p className="mt-4 text-center text-sm text-gray-500">
+                By continuing, you agree to our Terms and Privacy Policy.
+              </p>
+            </div>
           </div>
         </header>
 
         {/* Features */}
-        <section className="px-6 pb-20 lg:px-8">
+        <section id="features" className="px-6 pb-20 lg:px-8">
           <div className="mx-auto max-w-6xl">
+            <div className="mx-auto mb-8 max-w-3xl text-center">
+              <h2 className="text-2xl font-bold text-gray-900">Everything you need to ship fast</h2>
+              <p className="mt-2 text-gray-600">From secure auth to real-time updates, the essentials are built in.</p>
+            </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                 <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-700">⚡</div>
