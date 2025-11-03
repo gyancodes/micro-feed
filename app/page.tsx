@@ -128,14 +128,82 @@ export default function Home() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Micro Feed</h1>
-            <p className="text-gray-600 text-lg">Share your thoughts in 280 characters or less</p>
+      <div className="min-h-screen bg-gradient-to-b from-white to-blue-50">
+        {/* Hero */}
+        <header className="relative isolate px-6 pt-16 pb-12 sm:pt-24 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-200">
+              New • Real-time social micro feed
+            </span>
+            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+              Say more with less
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              Create bite-sized posts, see real-time updates, and connect instantly.
+              Built for speed and simplicity.
+            </p>
           </div>
-          <AuthForm onAuthSuccess={handleAuthSuccess} />
-        </div>
+          <div id="get-started" className="mx-auto mt-10 max-w-md">
+            <div className="rounded-2xl bg-white/80 backdrop-blur-md p-6 shadow-lg ring-1 ring-gray-200">
+              <h2 className="text-base font-semibold text-gray-900 mb-4">Get started</h2>
+              <AuthForm onAuthSuccess={handleAuthSuccess} />
+            </div>
+            <p className="mt-4 text-center text-sm text-gray-500">
+              By continuing, you agree to our Terms and Privacy Policy.
+            </p>
+          </div>
+        </header>
+
+        {/* Features */}
+        <section className="px-6 pb-20 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-700">⚡</div>
+                <h3 className="text-lg font-semibold text-gray-900">Instant posting</h3>
+                <p className="mt-2 text-sm text-gray-600">Share ideas up to 280 characters with a fast, focused composer.</p>
+              </div>
+              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">🔁</div>
+                <h3 className="text-lg font-semibold text-gray-900">Real-time feed</h3>
+                <p className="mt-2 text-sm text-gray-600">See likes and new posts appear instantly across all devices.</p>
+              </div>
+              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 text-purple-700">🔍</div>
+                <h3 className="text-lg font-semibold text-gray-900">Powerful search</h3>
+                <p className="mt-2 text-sm text-gray-600">Find posts by keyword without leaving the flow.</p>
+              </div>
+              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 text-orange-700">🔒</div>
+                <h3 className="text-lg font-semibold text-gray-900">Secure auth</h3>
+                <p className="mt-2 text-sm text-gray-600">Email/password sign-in powered by Supabase with RLS policies.</p>
+              </div>
+              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-rose-100 text-rose-700">📈</div>
+                <h3 className="text-lg font-semibold text-gray-900">Built to scale</h3>
+                <p className="mt-2 text-sm text-gray-600">Efficient pagination and optimistic UI for a snappy experience.</p>
+              </div>
+              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-sky-100 text-sky-700">🧩</div>
+                <h3 className="text-lg font-semibold text-gray-900">Composable</h3>
+                <p className="mt-2 text-sm text-gray-600">Clean components ready to customize for your product.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer CTA (links to single sign-in above) */}
+        <footer className="px-6 pb-24 lg:px-8">
+          <div className="mx-auto max-w-3xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+            <h3 className="text-2xl font-bold text-gray-900">Ready to share your first post?</h3>
+            <p className="mt-2 text-gray-600">Join now and start posting in seconds.</p>
+            <div className="mt-6">
+              <a href="#get-started" className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-white font-medium shadow-sm hover:bg-blue-700">
+                Get started
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }
